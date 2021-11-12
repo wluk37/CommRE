@@ -3,14 +3,11 @@ const csvData = require("./helpers/csvParser");
 const app = express();
 const port = 3000;
 
-app.get("/", (req, res) => {
-  // res.send("CommRE Analytics");
-  res.send(csvData);
-});
-
 // sends a list of unique agents
 app.get("/agents", (req, res) => {
   const agents = [];
+
+  // tracks unique agents
   csvData.forEach((entry) => {
     let agent = entry.agent;
     if (!agents.includes(agent)) {
@@ -49,6 +46,7 @@ app.get("/property-types/:agent", (req, res) => {
 app.get("/property-sales", (req, res) => {
   let propertySales = {};
 
+  // counts total number of property sales by each agent
   csvData.forEach((entry) => {
     const { agent } = entry;
     if (propertySales[agent] === undefined) {
