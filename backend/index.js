@@ -22,7 +22,27 @@ app.get("/agents", (req, res) => {
 
 // sends the number of properties sold by property type for an agent
 app.get("/property-types/:agent", (req, res) => {
-  res.send("Hello World!");
+  let propertyTypes = {};
+  const { agent } = req.params;
+
+  // filters csvData to only contain entries of [agent]
+  let filteredData = csvData.filter((entry) => {
+    if (entry.agent === agent) {
+      return entry;
+    }
+  });
+
+  // counts the number of sales in each property type
+  filteredData.forEach((entry) => {
+    const type = entry["property-type"];
+    if (propertyTypes[type] === undefined) {
+      propertyTypes[type] = 1;
+    } else {
+      propertyTypes[type]++;
+    }
+  });
+
+  res.send(propertyTypes);
 });
 
 // sends the total number of sales done by each agent
