@@ -8,8 +8,8 @@ app.get("/", (req, res) => {
   res.send(csvData);
 });
 
+// sends a list of unique agents
 app.get("/agents", (req, res) => {
-  // sends a list of unique agents
   const agents = [];
   csvData.forEach((entry) => {
     let agent = entry.agent;
@@ -20,23 +20,25 @@ app.get("/agents", (req, res) => {
   res.send(agents);
 });
 
-app.get("/property-types", (req, res) => {
-  // sends a list of all properties sold by agent
+// sends the number of properties sold by property type for an agent
+app.get("/property-types/:agent", (req, res) => {
   res.send("Hello World!");
 });
 
-app.get("/property-sales/:agent", (req, res) => {
-  // sends the total number of sales done by each agent
-  let propertySales = 0;
-  let { agent } = req.params;
+// sends the total number of sales done by each agent
+app.get("/property-sales", (req, res) => {
+  let propertySales = {};
 
   csvData.forEach((entry) => {
-    if (entry.agent === agent) {
-      propertySales++;
+    const { agent } = entry;
+    if (propertySales[agent] === undefined) {
+      propertySales[agent] = 1;
+    } else {
+      propertySales[agent]++;
     }
   });
 
-  res.send(`${propertySales}`);
+  res.send(propertySales);
 });
 
 app.listen(port, () => {
