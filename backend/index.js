@@ -27,7 +27,16 @@ app.get("/property-types", (req, res) => {
 
 app.get("/property-sales/:agent", (req, res) => {
   // sends the total number of sales done by each agent
-  res.send("Hello World!");
+  let propertySales = 0;
+  let { agent } = req.params;
+
+  csvData.forEach((entry) => {
+    if (entry.agent === agent) {
+      propertySales++;
+    }
+  });
+
+  res.send(`${propertySales}`);
 });
 
 app.listen(port, () => {
