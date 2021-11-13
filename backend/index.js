@@ -1,7 +1,10 @@
 const express = require("express");
 const csvData = require("./helpers/csvParser");
 const app = express();
-const port = 3000;
+const port = 8080;
+const cors = require("cors");
+
+app.use(cors());
 
 // sends a list of unique agents
 app.get("/agents", (req, res) => {
