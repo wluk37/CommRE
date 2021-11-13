@@ -5,8 +5,8 @@ import SalesBody from "./SalesBody";
 
 const SalesTable = (props) => {
   return (
-    <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }}>
+    <TableContainer sx={{ minWidth: 300, maxWidth: 300 }} component={Paper}>
+      <Table>
         <SalesHeader />
         <SalesBody props={props} />
       </Table>
