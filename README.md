@@ -16,12 +16,16 @@ Server set up instructions:
 
 Frontend set up instructions:
 
-0. Navigate to /frontend directory
+3. Navigate to /frontend directory
 
-1. Add the necessary dependencies:
+4. Add the necessary dependencies:
 
    yarn install
 
-2. Start server:
+5. Start server:
 
    yarn start
+
+6. View in browser:
+
+   http://localhost:3000/
