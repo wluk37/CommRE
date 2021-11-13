@@ -4,7 +4,7 @@ import { TableCell, TableHead, TableRow } from "@mui/material";
 const SalesHeader = () => {
   const tableHeader = ["Agent", "Sales"];
   return (
-    <TableHead>
+    <TableHead sx={{ bgcolor: "#13EC5E" }}>
       <TableRow>
         {tableHeader.map((ele, i) => (
           <TableCell align="left" key={"cell" + i}>
