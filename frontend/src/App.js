@@ -18,6 +18,14 @@ function App() {
     : "column";
   const fontSize = useMediaQuery(theme.breakpoints.up("sm")) ? "2vw" : "7vw";
   const firstRender = useRef(true);
+
+  /**
+   * fetches agent and sales data from server
+   * only if this is the app's first render,
+   * otherwise,
+   * sets the default agent selected to be
+   * the first row.
+   */
   useEffect(() => {
     if (firstRender.current) {
       const getSalesData = async () => {
@@ -31,6 +39,7 @@ function App() {
     }
   }, [salesData, agentList]);
 
+  // renders pie chart only when an agent has been selected
   useEffect(() => {
     if (agentSelected !== undefined && agentSelected !== "") {
       const getPropertyTypes = async () => {
