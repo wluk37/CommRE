@@ -17,7 +17,6 @@ function App() {
     ? "row"
     : "column";
   const fontSize = useMediaQuery(theme.breakpoints.up("sm")) ? "2vw" : "7vw";
-  const firstRender = useRef(true);
 
   /**
    * fetches agent and sales data from server
@@ -27,17 +26,16 @@ function App() {
    * the first row.
    */
   useEffect(() => {
-    if (firstRender.current) {
-      const getSalesData = async () => {
-        setSalesData(await fetchSales());
-        setAgentList(await fetchAgents());
-      };
-      getSalesData();
-      firstRender.current = false;
-    } else {
-      setAgentSelected(agentList[0]);
-    }
-  }, [salesData, agentList]);
+    const getSalesData = async () => {
+      setSalesData(await fetchSales());
+      setAgentList(await fetchAgents());
+    };
+    getSalesData();
+  }, []);
+
+  useEffect(() => {
+    setAgentSelected(agentList[0]);
+  }, [agentList]);
 
   // renders pie chart only when an agent has been selected
   useEffect(() => {
