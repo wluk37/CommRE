@@ -1,6 +1,6 @@
 import "./App.css";
 import SalesTable from "./components/SalesTable";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import PieChart from "./components/PieChart";
 import { fetchAgents, fetchSales, fetchTypes } from "./utils/fetcher";
 import { useMediaQuery } from "@mui/material";
