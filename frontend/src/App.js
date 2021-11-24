@@ -18,13 +18,7 @@ function App() {
     : "column";
   const fontSize = useMediaQuery(theme.breakpoints.up("sm")) ? "2vw" : "7vw";
 
-  /**
-   * fetches agent and sales data from server
-   * only if this is the app's first render,
-   * otherwise,
-   * sets the default agent selected to be
-   * the first row.
-   */
+  // fetches agent and sales data from server on initial component mount
   useEffect(() => {
     const getSalesData = async () => {
       setSalesData(await fetchSales());
@@ -33,6 +27,7 @@ function App() {
     getSalesData();
   }, []);
 
+  // sets the agent being selected when agent list changes
   useEffect(() => {
     setAgentSelected(agentList[0]);
   }, [agentList]);
