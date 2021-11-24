@@ -1,6 +1,6 @@
 import "./App.css";
 import SalesTable from "./components/SalesTable";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import PieChart from "./components/PieChart";
 import { fetchAgents, fetchSales, fetchTypes } from "./utils/fetcher";
 import { useMediaQuery } from "@mui/material";
@@ -17,27 +17,20 @@ function App() {
     ? "row"
     : "column";
   const fontSize = useMediaQuery(theme.breakpoints.up("sm")) ? "2vw" : "7vw";
-  const firstRender = useRef(true);
 
-  /**
-   * fetches agent and sales data from server
-   * only if this is the app's first render,
-   * otherwise,
-   * sets the default agent selected to be
-   * the first row.
-   */
+  // fetches agent and sales data from server on initial component mount
   useEffect(() => {
-    if (firstRender.current) {
-      const getSalesData = async () => {
-        setSalesData(await fetchSales());
-        setAgentList(await fetchAgents());
-      };
-      getSalesData();
-      firstRender.current = false;
-    } else {
-      setAgentSelected(agentList[0]);
-    }
-  }, [salesData, agentList]);
+    const getSalesData = async () => {
+      setSalesData(await fetchSales());
+      setAgentList(await fetchAgents());
+    };
+    getSalesData();
+  }, []);
+
+  // sets the agent being selected when agent list changes
+  useEffect(() => {
+    setAgentSelected(agentList[0]);
+  }, [agentList]);
 
   // renders pie chart only when an agent has been selected
   useEffect(() => {
